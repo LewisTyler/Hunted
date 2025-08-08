@@ -20,9 +20,9 @@ namespace StarterAssets
         [Tooltip("Move speed of the character in m/s")]
         public float WalkSpeed = 2.0f;
         public float RunSpeed = 4.0f;
-
-        [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
+
+        public float AimRotationSpeed = 20.0f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -115,7 +115,11 @@ namespace StarterAssets
         private float targetSpeed;
         private bool _walking = false;
         private float _speedAnimationMultiplier = 0.0f;
-
+        private bool _aiming = false;
+        private bool _sprinting = false;
+        private float _aimLayerWeight = 0.0f;
+        private bool _reloading = false;
+        private Vector2 _aimedMovingAnimationsInput = Vector2.zero;
         private bool IsCurrentDeviceMouse
         {
             get
@@ -131,11 +135,10 @@ namespace StarterAssets
 
         private void Awake()
         {
-            // get a reference to our main camera
-            if (_mainCamera == null)
-            {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            }
+            //ToDO: Return if not local player
+            _mainCamera = CameraManager.mainCamera.gameObject;
+            CameraManager.playerCamera.m_Follow = CinemachineCameraTarget.transform;
+            CameraManager.aimingCamera.m_Follow = CinemachineCameraTarget.transform;
         }
 
         private void Start()
@@ -160,21 +163,29 @@ namespace StarterAssets
 
         private void Update()
         {
+            _aiming = _input.aim;
+            _sprinting = _input.sprint && _aiming == false;
+
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
             GroundedCheck();
 
+            CameraManager.singleton.aiming = _aiming;
             _animator.SetFloat("Armed", _armed ? 1.0f : 0.0f);
+            _animator.SetFloat("Aimed", _aiming ? 1.0f : 0.0f);
 
-            if(_input.walk)
+            _aimLayerWeight = Mathf.Lerp(_aimLayerWeight, _aiming || _reloading ? 1.0f : 0.0f, 10.0f * Time.deltaTime);
+            _animator.SetLayerWeight(1, _aimLayerWeight);
+
+            if (_input.walk)
             {
                 _input.walk = false;
                 _walking = !_walking;
             }
 
             targetSpeed = RunSpeed;
-            if(_input.sprint)
+            if(_sprinting)
             {
                 targetSpeed = SprintSpeed;
                 _speedAnimationMultiplier = 3.0f;
@@ -188,7 +199,24 @@ namespace StarterAssets
             {
                 _speedAnimationMultiplier = 2.0f;
             }
+
+            _aimedMovingAnimationsInput = Vector2.Lerp(_aimedMovingAnimationsInput, _input.move.normalized * _speedAnimationMultiplier, SpeedChangeRate * Time.deltaTime);
+            _animator.SetFloat("Speed_X",_aimedMovingAnimationsInput.x);
+            _animator.SetFloat("Speed_Y", _aimedMovingAnimationsInput.y);
+
             Move();
+            Rotate();
+        }
+
+        private void Rotate()
+        {
+            if (_aiming)
+            {
+                Vector3 aimTarget = CameraManager.singleton.aimTargetPoint;
+                aimTarget.y = transform.position.y;
+                Vector3 aimDirection = (aimTarget - transform.position).normalized;
+                transform.forward = Vector3.Lerp(transform.forward, aimDirection, AimRotationSpeed * Time.deltaTime);
+            }
         }
 
         private void LateUpdate()
@@ -291,7 +319,11 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                if(_aiming == false)
+                {
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                }
+
             }
 
 

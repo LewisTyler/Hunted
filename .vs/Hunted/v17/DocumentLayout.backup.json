@@ -7,7 +7,11 @@
       "RelativeMoniker": "D:0:0:{FC95A267-3D1E-C79C-80A6-A344D5E00122}|Assembly-CSharp.csproj|solutionrelative:assets\\starterassets\\thirdpersoncontroller\\scripts\\thirdpersoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC95A267-3D1E-C79C-80A6-A344D5E00122}|Assembly-CSharp.csproj|c:\\development\\hunted\\assets\\starterassets\\inputsystem\\starterassetsinputs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FC95A267-3D1E-C79C-80A6-A344D5E00122}|Assembly-CSharp.csproj|c:\\development\\hunted\\assets\\scripts\\cameramanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC95A267-3D1E-C79C-80A6-A344D5E00122}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cameramanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC95A267-3D1E-C79C-80A6-A344D5E00122}|Assembly-CSharp.csproj|C:\\Development\\Hunted\\assets\\starterassets\\inputsystem\\starterassetsinputs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FC95A267-3D1E-C79C-80A6-A344D5E00122}|Assembly-CSharp.csproj|solutionrelative:assets\\starterassets\\inputsystem\\starterassetsinputs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -18,11 +22,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "CameraManager.cs",
+              "DocumentMoniker": "C:\\Development\\Hunted\\Assets\\Scripts\\CameraManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CameraManager.cs",
+              "ToolTip": "C:\\Development\\Hunted\\Assets\\Scripts\\CameraManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CameraManager.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAYwCUAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T13:29:49.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "StarterAssetsInputs.cs",
               "DocumentMoniker": "C:\\Development\\Hunted\\Assets\\StarterAssets\\InputSystem\\StarterAssetsInputs.cs",
               "RelativeDocumentMoniker": "Assets\\StarterAssets\\InputSystem\\StarterAssetsInputs.cs",
@@ -30,8 +47,7 @@
               "RelativeToolTip": "Assets\\StarterAssets\\InputSystem\\StarterAssetsInputs.cs",
               "ViewState": "AgIAAEcAAAAAAAAAAAAgwGAAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-08T11:34:22.944Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-08T11:34:22.944Z"
             },
             {
               "$type": "Document",
@@ -41,7 +57,7 @@
               "RelativeDocumentMoniker": "Assets\\StarterAssets\\ThirdPersonController\\Scripts\\ThirdPersonController.cs",
               "ToolTip": "C:\\Development\\Hunted\\Assets\\StarterAssets\\ThirdPersonController\\Scripts\\ThirdPersonController.cs",
               "RelativeToolTip": "Assets\\StarterAssets\\ThirdPersonController\\Scripts\\ThirdPersonController.cs",
-              "ViewState": "AgIAAPgAAAAAAAAAAAAAAAMBAAA9AAAAAAAAAA==",
+              "ViewState": "AgIAALcAAAAAAAAAAAAAAM0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-08T11:17:56.894Z",
               "EditorCaption": ""
