@@ -36,6 +36,7 @@ public class CameraManager : MonoBehaviour
     public bool aiming { get { return _aiming; } set { _aiming = value; } }
     private Vector3 _aimTargetPoint = Vector3.zero;
     public Vector3 aimTargetPoint { get { return _aimTargetPoint; } }
+    public float sensitivity { get { return _aiming ? _aimingSensitivity : defaultSensitivity; } }
 
     private void Awake()
     {
