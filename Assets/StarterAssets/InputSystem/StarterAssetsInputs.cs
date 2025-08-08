@@ -12,6 +12,10 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool aim;
+		public bool shoot;
+		public bool walk;
+		public bool reload;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -21,7 +25,32 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
+
+		/// <summary>
+		/// New inputs added by TL
+		/// </summary>
+        public void OnAim(InputValue value)
+        {
+            AimInput(value.isPressed);
+        }
+
+        public void OnShoot(InputValue value)
+        {
+            ShootInput(value.isPressed);
+        }
+        public void OnWalk(InputValue value)
+        {
+            WalkInput(value.isPressed);
+        }
+        public void OnReload(InputValue value)
+        {
+            ReloadInput(value.isPressed);
+        }
+		/// <summary>
+		/// End of new inputs
+		/// </summary>
+
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -44,7 +73,31 @@ namespace StarterAssets
 			SprintInput(value.isPressed);
 		}
 #endif
+		/// <summary>
+		/// New inputs added by TL
+		/// </summary>
+		public void AimInput(bool aimState)
+		{
+			aim = aimState;
+		}
 
+		public void ShootInput(bool shootState)
+		{
+			shoot = shootState;
+		}
+
+		public void WalkInput(bool walkState)
+		{
+			walk = walkState;
+		}
+
+		public void ReloadInput(bool reloadState)
+		{
+			reload = reloadState;
+		}
+		/// <summary>
+		/// End of new inputs added
+		/// </summary>
 
 		public void MoveInput(Vector2 newMoveDirection)
 		{

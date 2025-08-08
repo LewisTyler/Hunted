@@ -14,9 +14,12 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        [SerializeField] private bool _armed;
+
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
-        public float MoveSpeed = 2.0f;
+        public float WalkSpeed = 2.0f;
+        public float RunSpeed = 4.0f;
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
@@ -109,6 +112,9 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
+        private float targetSpeed;
+        private bool _walking = false;
+        private float _speedAnimationMultiplier = 0.0f;
 
         private bool IsCurrentDeviceMouse
         {
@@ -158,6 +164,30 @@ namespace StarterAssets
 
             JumpAndGravity();
             GroundedCheck();
+
+            _animator.SetFloat("Armed", _armed ? 1.0f : 0.0f);
+
+            if(_input.walk)
+            {
+                _input.walk = false;
+                _walking = !_walking;
+            }
+
+            targetSpeed = RunSpeed;
+            if(_input.sprint)
+            {
+                targetSpeed = SprintSpeed;
+                _speedAnimationMultiplier = 3.0f;
+            }
+            else if(_walking)
+            {
+                targetSpeed = WalkSpeed;
+                _speedAnimationMultiplier = 1.0f;
+            }
+            else
+            {
+                _speedAnimationMultiplier = 2.0f;
+            }
             Move();
         }
 
@@ -214,7 +244,7 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -245,7 +275,7 @@ namespace StarterAssets
                 _speed = targetSpeed;
             }
 
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+            _animationBlend = Mathf.Lerp(_animationBlend, _input.move == Vector2.zero ? 0 : _speedAnimationMultiplier, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             // normalise input direction
